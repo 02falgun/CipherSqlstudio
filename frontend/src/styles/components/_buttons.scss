@@ -1,0 +1,37 @@
+@use '../base/variables' as *;
+
+.primary-btn,
+.secondary-btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.primary-btn {
+  background-color: $color-success;
+  color: #fff;
+
+  &:hover:not(:disabled) {
+    background-color: $color-success-hover;
+  }
+}
+
+.secondary-btn {
+  background-color: $color-surface-alt;
+  color: $color-text;
+  border: 1px solid $color-border;
+
+  &:hover:not(:disabled) {
+    background-color: $color-border;
+  }
+}

@@ -1,3 +1,30 @@
+import SQLResultsTable from './SQLResultsTable.jsx';
+
+const normalizeRows = (result) => {
+  if (!result) {
+    return [];
+  }
+
+  if (Array.isArray(result)) {
+    return result;
+  }
+
+  if (Array.isArray(result.data)) {
+    return result.data;
+  }
+
+  if (Array.isArray(result.rows) && Array.isArray(result.columns)) {
+    return result.rows.map((row) => {
+      return result.columns.reduce((accumulator, column, index) => {
+        accumulator[column] = row[index];
+        return accumulator;
+      }, {});
+    });
+  }
+
+  return [];
+};
+
 const QueryResults = ({ result }) => {
   if (!result) {
     return (
@@ -8,32 +35,17 @@ const QueryResults = ({ result }) => {
     );
   }
 
+  const rows = normalizeRows(result);
+  const rowCount = result?.rowCount ?? rows.length;
+  const executionTime = result?.executionTimeMs;
+
   return (
     <section className="panel">
       <h3>Query Results</h3>
       <p>
-        {result.rowCount} rows • {result.executionTimeMs} ms
+        {rowCount} rows{typeof executionTime === 'number' ? ` • ${executionTime} ms` : ''}
       </p>
-      <div className="result-table-wrapper">
-        <table className="result-table">
-          <thead>
-            <tr>
-              {result.columns.map((column) => (
-                <th key={column}>{column}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {result.rows.map((row, rowIndex) => (
-              <tr key={rowIndex}>
-                {row.map((cell, columnIndex) => (
-                  <td key={`${rowIndex}-${columnIndex}`}>{String(cell ?? '')}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <SQLResultsTable rows={rows} />
     </section>
   );
 };

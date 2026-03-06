@@ -11,3 +11,9 @@ export const sandboxPool = new Pool({
   max: 10,
   idleTimeoutMillis: 30000
 });
+
+sandboxPool.on('error', (error) => {
+  console.error('Unexpected PostgreSQL pool error:', error.message);
+});
+
+export const query = (...args) => sandboxPool.query(...args);

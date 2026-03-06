@@ -1,13 +1,13 @@
 import { performance } from 'node:perf_hooks';
 
-import { sandboxPool } from '../config/postgres.js';
+import { query } from '../config/postgres.js';
 import { validateQuerySafety } from './queryValidationService.js';
 
 export const executeSandboxQuery = async (rawQuery) => {
   const safeQuery = validateQuerySafety(rawQuery);
 
   const startedAt = performance.now();
-  const result = await sandboxPool.query({
+  const result = await query({
     text: safeQuery,
     rowMode: 'array'
   });

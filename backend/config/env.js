@@ -6,7 +6,7 @@ export const env = {
   nodeEnv: process.env.NODE_ENV || 'development',
   port: Number(process.env.PORT || 4000),
   frontendOrigin: process.env.FRONTEND_ORIGIN || 'http://localhost:5173',
-  mongoUri: process.env.MONGODB_URI || '',
+  mongoUri: process.env.MONGO_URI || '',
   postgres: {
     host: process.env.POSTGRES_HOST || 'localhost',
     port: Number(process.env.POSTGRES_PORT || 5432),

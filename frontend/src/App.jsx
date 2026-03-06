@@ -7,7 +7,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<AssignmentsPage />} />
-      <Route path="/assignments/:assignmentId" element={<AssignmentAttemptPage />} />
+      <Route path="/assignment/:id" element={<AssignmentAttemptPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

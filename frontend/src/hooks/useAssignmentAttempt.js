@@ -4,8 +4,6 @@ import { assignmentService } from '../services/assignmentService';
 import { queryService } from '../services/queryService';
 import { hintService } from '../services/hintService';
 
-const defaultStudentId = 'student-demo';
-
 export const useAssignmentAttempt = (assignmentId) => {
   const [assignment, setAssignment] = useState(null);
   const [attempts, setAttempts] = useState([]);
@@ -50,13 +48,8 @@ export const useAssignmentAttempt = (assignmentId) => {
     setError('');
 
     try {
-      const payload = await queryService.execute({
-        assignmentId,
-        studentId: defaultStudentId,
-        query
-      });
-      setQueryResult(payload.result);
-      await loadAssignment();
+      const payload = await queryService.execute({ query });
+      setQueryResult(payload.data || []);
     } catch (err) {
       setQueryResult(null);
       setError(err.message);
@@ -66,7 +59,7 @@ export const useAssignmentAttempt = (assignmentId) => {
   };
 
   const requestHint = async () => {
-    if (!assignmentId) {
+    if (!assignment) {
       return;
     }
 
@@ -74,7 +67,10 @@ export const useAssignmentAttempt = (assignmentId) => {
     setError('');
 
     try {
-      const payload = await hintService.getHint({ assignmentId, query });
+      const payload = await hintService.getHint({
+        assignmentQuestion: assignment.question || assignment.description,
+        userQueryAttempt: query
+      });
       setHintText(payload.hint || 'No hint available right now.');
     } catch (err) {
       setError(err.message);

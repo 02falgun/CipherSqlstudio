@@ -1,8 +1,12 @@
 const parseResponse = async (response) => {
   const payload = await response.json().catch(() => ({}));
 
+  if (payload?.success === false) {
+    throw new Error(payload.error || payload.message || 'Request failed');
+  }
+
   if (!response.ok) {
-    throw new Error(payload.message || 'Request failed');
+    throw new Error(payload.error || payload.message || 'Request failed');
   }
 
   return payload;

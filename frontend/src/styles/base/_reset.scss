@@ -1,0 +1,36 @@
+@use 'variables' as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+html {
+  min-width: $breakpoint-xxs;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: $font-family-base;
+  line-height: 1.6;
+  background-color: $color-bg;
+  color: $color-text;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+a {
+  color: $color-link;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

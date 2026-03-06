@@ -9,6 +9,18 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:4000',
         changeOrigin: true
+      },
+      '/assignments': {
+        target: 'http://localhost:4000',
+        changeOrigin: true
+      },
+      '/execute-query': {
+        target: 'http://localhost:4000',
+        changeOrigin: true
+      },
+      '/hint': {
+        target: 'http://localhost:4000',
+        changeOrigin: true
       }
     }
   }

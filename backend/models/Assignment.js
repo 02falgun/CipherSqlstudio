@@ -11,6 +11,27 @@ const assignmentSchema = new mongoose.Schema(
       type: String,
       required: true
     },
+    shortDescription: {
+      type: String,
+      trim: true,
+      default: ''
+    },
+    question: {
+      type: String,
+      default: ''
+    },
+    requirements: {
+      type: [String],
+      default: []
+    },
+    tableSchemas: {
+      type: [mongoose.Schema.Types.Mixed],
+      default: []
+    },
+    sampleData: {
+      type: [mongoose.Schema.Types.Mixed],
+      default: []
+    },
     starterQuery: {
       type: String,
       default: 'SELECT * FROM students LIMIT 10;'

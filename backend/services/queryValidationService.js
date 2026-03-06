@@ -36,10 +36,10 @@ export const validateQuerySafety = (rawQuery) => {
   }
 
   const normalized = query.toLowerCase();
-  const startsWithAllowed = /^\s*(select|with|explain)\b/.test(normalized);
+  const startsWithAllowed = /^\s*select\b/.test(normalized);
 
   if (!startsWithAllowed) {
-    throw new Error('Only read-only SELECT/CTE/EXPLAIN queries are allowed.');
+    throw new Error('Only SELECT queries are allowed.');
   }
 
   for (const keyword of forbiddenKeywords) {

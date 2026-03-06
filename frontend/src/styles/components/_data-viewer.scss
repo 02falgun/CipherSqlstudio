@@ -1,0 +1,43 @@
+@use '../base/variables' as *;
+
+.data-viewer {
+  &__block {
+    margin-top: 1rem;
+  }
+
+  &__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+
+    li {
+      background-color: $color-bg;
+      border: 1px solid $color-surface-alt;
+      border-radius: $radius-sm;
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    strong {
+      font-weight: 600;
+    }
+
+    span {
+      color: $color-muted;
+      font-size: 0.875rem;
+    }
+  }
+
+  &__table {
+    margin-top: 1rem;
+
+    h5 {
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+  }
+}

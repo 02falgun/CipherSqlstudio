@@ -1,0 +1,26 @@
+@use '../base/variables' as *;
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: $radius-pill;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+
+  &-easy {
+    background-color: $color-success;
+    color: #fff;
+  }
+
+  &-medium {
+    background-color: $color-warning;
+    color: #fff;
+  }
+
+  &-hard {
+    background-color: $color-danger;
+    color: #fff;
+  }
+}

@@ -3,7 +3,6 @@ import {
   listAssignments,
   seedAssignments
 } from '../services/assignmentService.js';
-import { listAttemptsForAssignment } from '../services/attemptService.js';
 
 export const getAssignments = async (_req, res) => {
   const assignments = await listAssignments();
@@ -11,7 +10,7 @@ export const getAssignments = async (_req, res) => {
 };
 
 export const getAssignmentDetails = async (req, res) => {
-  const assignment = await getAssignmentById(req.params.assignmentId);
+  const assignment = await getAssignmentById(req.params.id);
 
   if (!assignment) {
     const error = new Error('Assignment not found');
@@ -19,8 +18,7 @@ export const getAssignmentDetails = async (req, res) => {
     throw error;
   }
 
-  const attempts = await listAttemptsForAssignment(assignment._id);
-  res.json({ assignment, attempts });
+  res.json({ assignment });
 };
 
 export const seedAssignmentData = async (_req, res) => {

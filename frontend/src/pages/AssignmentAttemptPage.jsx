@@ -1,13 +1,14 @@
 import { Link, useParams } from 'react-router-dom';
 
 import { useAssignmentAttempt } from '../hooks/useAssignmentAttempt';
+import QuestionPanel from '../components/QuestionPanel.jsx';
+import SampleDataViewer from '../components/SampleDataViewer.jsx';
 import SQLEditor from '../components/SQLEditor.jsx';
 import QueryResults from '../components/QueryResults.jsx';
 import HintPanel from '../components/HintPanel.jsx';
-import AttemptHistory from '../components/AttemptHistory.jsx';
 
 const AssignmentAttemptPage = () => {
-  const { assignmentId } = useParams();
+  const { id } = useParams();
   const {
     assignment,
     query,
@@ -19,9 +20,8 @@ const AssignmentAttemptPage = () => {
     isHintLoading,
     error,
     executeQuery,
-    requestHint,
-    recentAttempts
-  } = useAssignmentAttempt(assignmentId);
+    requestHint
+  } = useAssignmentAttempt(id);
 
   if (isLoading) {
     return (
@@ -49,25 +49,34 @@ const AssignmentAttemptPage = () => {
           ← Back to Assignments
         </Link>
         <h1>{assignment.title}</h1>
-        <p>{assignment.description}</p>
         <span className={`badge badge-${assignment.difficulty}`}>{assignment.difficulty}</span>
       </header>
 
-      <SQLEditor value={query} onChange={setQuery} />
+      <QuestionPanel description={assignment.question || assignment.description} />
+
+      <SampleDataViewer
+        tableSchemas={assignment.tableSchemas}
+        sampleData={assignment.sampleData}
+      />
+
+      <SQLEditor
+        value={query}
+        onQueryChange={setQuery}
+        height="360px"
+        defaultQuery="SELECT * FROM students LIMIT 10;"
+      />
 
       <div className="actions">
         <button className="primary-btn" onClick={executeQuery} disabled={isExecuting}>
-          {isExecuting ? 'Executing...' : 'Run Query'}
+          {isExecuting ? 'Executing...' : 'Execute Query'}
         </button>
       </div>
+
+      <HintPanel hintText={hintText} isLoading={isHintLoading} onRequestHint={requestHint} />
 
       {error && <p className="error-text">{error}</p>}
 
       <QueryResults result={queryResult} />
-
-      <HintPanel hintText={hintText} isLoading={isHintLoading} onRequestHint={requestHint} />
-
-      <AttemptHistory attempts={recentAttempts} />
     </div>
   );
 };

@@ -1,0 +1,36 @@
+@use '../base/mixins' as *;
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+
+  @include up(sm) {
+    padding: 1.5rem;
+  }
+
+  @include up(lg) {
+    padding: 2rem;
+  }
+}
+
+.page-header {
+  margin-bottom: 2rem;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: #8b949e;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+}

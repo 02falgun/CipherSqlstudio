@@ -10,7 +10,7 @@ import { asyncHandler } from '../middleware/asyncHandler.js';
 const router = Router();
 
 router.get('/', asyncHandler(getAssignments));
-router.get('/:assignmentId', asyncHandler(getAssignmentDetails));
+router.get('/:id', asyncHandler(getAssignmentDetails));
 router.post('/seed', asyncHandler(seedAssignmentData));
 
 export default router;

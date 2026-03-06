@@ -1,9 +1,9 @@
 import app from './app.js';
 import { env } from './config/env.js';
-import { connectMongo } from './config/mongo.js';
+import { connectMongoDB } from './config/mongo.js';
 
 const bootstrap = async () => {
-  await connectMongo();
+  await connectMongoDB();
 
   app.listen(env.port, () => {
     console.log(`CipherSQLStudio backend running on port ${env.port}`);

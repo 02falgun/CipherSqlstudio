@@ -2,14 +2,21 @@ import mongoose from 'mongoose';
 
 import { env } from './env.js';
 
-export const connectMongo = async () => {
+export const connectMongoDB = async () => {
   if (!env.mongoUri) {
-    throw new Error('Missing MONGODB_URI. Set it in backend/.env');
+    throw new Error('Missing MONGO_URI. Set it in backend/.env');
   }
 
-  await mongoose.connect(env.mongoUri, {
-    serverSelectionTimeoutMS: 10000
-  });
+  try {
+    console.log('Connecting to MongoDB...');
 
-  console.log('Connected to MongoDB');
+    const connection = await mongoose.connect(env.mongoUri, {
+      serverSelectionTimeoutMS: 10000
+    });
+
+    console.log(`MongoDB connected: ${connection.connection.host}`);
+  } catch (error) {
+    console.error('MongoDB connection failed:', error.message);
+    throw error;
+  }
 };

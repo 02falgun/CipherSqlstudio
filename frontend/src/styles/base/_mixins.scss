@@ -1,0 +1,21 @@
+@use 'variables' as *;
+
+@mixin up($breakpoint) {
+  @if $breakpoint == xxs {
+    @media (min-width: $breakpoint-xxs) {
+      @content;
+    }
+  } @else if $breakpoint == sm {
+    @media (min-width: $breakpoint-sm) {
+      @content;
+    }
+  } @else if $breakpoint == lg {
+    @media (min-width: $breakpoint-lg) {
+      @content;
+    }
+  } @else if $breakpoint == xl {
+    @media (min-width: $breakpoint-xl) {
+      @content;
+    }
+  }
+}

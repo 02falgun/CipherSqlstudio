@@ -1,5 +1,28 @@
 import { Assignment } from '../models/Assignment.js';
 
+const buildShortDescription = (assignment) => {
+  const source = assignment.shortDescription || assignment.description || assignment.question || '';
+  const trimmed = source.trim();
+
+  if (trimmed.length <= 140) {
+    return trimmed;
+  }
+
+  return `${trimmed.slice(0, 137)}...`;
+};
+
+const buildRequirements = (assignment) => {
+  if (Array.isArray(assignment.requirements) && assignment.requirements.length > 0) {
+    return assignment.requirements;
+  }
+
+  if (Array.isArray(assignment.expectedConcepts) && assignment.expectedConcepts.length > 0) {
+    return assignment.expectedConcepts;
+  }
+
+  return [];
+};
+
 const seedData = [
   {
     title: 'Find Top Performing Students',
@@ -28,11 +51,35 @@ const seedData = [
 ];
 
 export const listAssignments = async () => {
-  return Assignment.find().sort({ createdAt: -1 }).lean();
+  const assignments = await Assignment.find().sort({ createdAt: -1 }).lean();
+
+  return assignments.map((assignment) => ({
+    _id: assignment._id,
+    title: assignment.title,
+    difficulty: assignment.difficulty,
+    shortDescription: buildShortDescription(assignment),
+    description: buildShortDescription(assignment)
+  }));
 };
 
 export const getAssignmentById = async (assignmentId) => {
-  return Assignment.findById(assignmentId).lean();
+  const assignment = await Assignment.findById(assignmentId).lean();
+
+  if (!assignment) {
+    return null;
+  }
+
+  return {
+    _id: assignment._id,
+    title: assignment.title,
+    difficulty: assignment.difficulty,
+    question: assignment.question || assignment.description || '',
+    requirements: buildRequirements(assignment),
+    tableSchemas: assignment.tableSchemas || [],
+    sampleData: assignment.sampleData || [],
+    description: assignment.description || assignment.question || '',
+    starterQuery: assignment.starterQuery || 'SELECT * FROM students LIMIT 10;'
+  };
 };
 
 export const seedAssignments = async () => {
