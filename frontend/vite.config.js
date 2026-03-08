@@ -7,19 +7,19 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://localhost:4000',
+        target: 'http://localhost:3000',
         changeOrigin: true
       },
       '/assignments': {
-        target: 'http://localhost:4000',
+        target: 'http://localhost:3000',
         changeOrigin: true
       },
       '/execute-query': {
-        target: 'http://localhost:4000',
+        target: 'http://localhost:3000',
         changeOrigin: true
       },
       '/hint': {
-        target: 'http://localhost:4000',
+        target: 'http://localhost:3000',
         changeOrigin: true
       }
     }

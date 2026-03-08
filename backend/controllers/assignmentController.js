@@ -21,7 +21,8 @@ export const getAssignmentDetails = async (req, res) => {
   res.json({ assignment });
 };
 
-export const seedAssignmentData = async (_req, res) => {
-  const result = await seedAssignments();
+export const seedAssignmentData = async (req, res) => {
+  const force = req.query.force === 'true';
+  const result = await seedAssignments({ force });
   res.status(201).json(result);
 };
